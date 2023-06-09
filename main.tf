@@ -61,12 +61,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
-
-  admin_ssh_password {
-    computer_name = "example-machine"
-   admin_username = "lylla"
-   admin_password = "Jevis@ambronay"
-   disable_password_authentication = false
+  
   }
 
   os_disk {
