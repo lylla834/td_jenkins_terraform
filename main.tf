@@ -7,11 +7,17 @@ terraform {
   }
 }
 
+# Configure the Microsoft Azure Provider
 provider "azurerm" {
-  features {
-    
-  }
+  features {}
+
+  client_id       = "1c136c9f-71a7-4e24-b57e-47c93b6f5c43"
+  client_secret   = "e3Z8Q~wn2rYYJZdNM-i~ntOrEyMHj8zpHvKB5a~-"
+  tenant_id       = "7349d3b2-951f-41be-877e-d8ccd9f3e73c"
+  subscription_id = "393e3de3-0900-4b72-8f1b-fb3b1d6b97f1"
+
 }
+
 
 
 
@@ -126,14 +132,19 @@ resource "azurerm_linux_virtual_machine" "nginx" {
 
    depends_on = [azurerm_resource_group.webserver]
 }
-
-
-variable "subscription_id" {
-   description = "Azure subscription"
-   default = "393e3de3-0900-4b72-8f1b-fb3b1d6b97f1"
+resource "azurerm_virtual_network" "webserver-net" {
+  name                = "webserver-net"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.webserver.location
+  resource_group_name = azurerm_resource_group.webserver.name
 }
 
-variable "tenant_id" {
-   description = "Azure Tenant ID"
-   default = "7349d3b2-951f-41be-877e-d8ccd9f3e73c"
+resource "azurerm_subnet" "webserver-subnet" {
+  name                 = "subnet01"
+  resource_group_name  = azurerm_resource_group.webserver.name
+  virtual_network_name = azurerm_virtual_network.webserver-net.name
+  address_prefixes       = ["10.0.1.0/24"]
+
+  private_link_service_network_policies_enabled = false
 }
+
