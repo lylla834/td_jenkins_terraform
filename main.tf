@@ -57,12 +57,16 @@ resource "azurerm_linux_virtual_machine" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_F2"
-  admin_username      = "lylla"
-  admin_password      = "Jevis@ambronay"
+  admin_username      = "adminuser"
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
-  
+
+  admin_ssh {
+   computer_name = "example-machine"
+   admin_username = "lylla"
+   admin_password = "Jevis@ambronay"
+   disable_password_authentication = false
   }
 
   os_disk {
@@ -72,8 +76,8 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts"
     version   = "latest"
   }
 }
