@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    tools {terraform 'terraform'}
+    tools {
+        terraform 'terraform'
+    }
     stages {
         stage('recup') {            steps{          checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/lylla834/td_jenkins_terraform']]) }}
         stage('terraform init') {
@@ -15,7 +17,7 @@ pipeline {
         } 
 		stage('terraform apply') {         
            steps{                            
-                sh 'terraform apply -auto-approve'           
+                sh 'terraform apply --auto-approve'           
                 echo 'terraform apply succeed'}              
         }
         
