@@ -23,7 +23,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "webserver" {
    name = "terraform_jenkins_lylla"
-   location = var.location
+   location = "West Europe"
 }
 
 resource "azurerm_network_security_group" "allowedports" {
