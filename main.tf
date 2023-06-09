@@ -57,13 +57,13 @@ resource "azurerm_linux_virtual_machine" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_F2"
-  admin_username      = "adminuser"
+  admin_username      = "lylla"
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
 
   admin_ssh_key {
-    username   = "adminuser"
+    username   = "lylla"
     public_key = file("~/.ssh/id_rsa.pub")
   }
 
