@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('recup') {            steps{          checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/lylla834/td_jenkins_terraform']]) }
+        stage('recup') {            steps{          checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/lylla834/td_jenkins_terraform']]) }}
         stage('terraform init') {
             steps{
                 sh 'terraform init'}
@@ -17,6 +17,8 @@ pipeline {
                 echo 'terraform succeed'}              
         }
         
+        }
     }
-}
+
+
 
